@@ -21,12 +21,12 @@ module ApiFlashcards
       end
 
       context " with incorrect credentials" do
-        before { get :welcome, request.headers["Authorization"] = "incorrect" }
+        before { get :welcome, request.headers["Authorization"] = "Basic some_incorrect" }
         it_behaves_like "unauthorized"
       end
 
       context "with correct credentials" do
-        before { get :welcome, request.headers["Authorization"] = "Basic YTpi" }
+        before { get :welcome, request.headers["Authorization"] = "Basic aWx5YS5kb2xnaXJldkBnbWFpbC5jb206MTIzNDU2Nzg5" }
         it "returns 200 status code" do
           expect(response.status).to eq(200)
         end

@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = ApiFlashcards::VERSION
   s.authors     = ["Ilya Dolgirev"]
   s.email       = ["ilya.dolgirev@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ApiFlashcards."
-  s.description = "TODO: Description of ApiFlashcards."
+  s.homepage    = "http://www.mkdev.me"
+  s.summary     = "Summary of ApiFlashcards."
+  s.description = "API for Flashcards app"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
