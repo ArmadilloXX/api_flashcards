@@ -9,14 +9,18 @@ Gem::Specification.new do |s|
   s.version     = ApiFlashcards::VERSION
   s.authors     = ["Ilya Dolgirev"]
   s.email       = ["ilya.dolgirev@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of ApiFlashcards."
-  s.description = "TODO: Description of ApiFlashcards."
+  s.homepage    = "http://www.mkdev.me"
+  s.summary     = "Summary of ApiFlashcards."
+  s.description = "API for Flashcards app"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 4.2.4"
 
   s.add_development_dependency "pg"
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'bcrypt'
 end

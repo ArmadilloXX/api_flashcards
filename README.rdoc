@@ -1,3 +1,7 @@
 = ApiFlashcards
 
+{<img src="https://travis-ci.org/ArmadilloXX/api_flashcards.svg" alt="Build Status" />}[https://travis-ci.org/ArmadilloXX/api_flashcards]
+
+
+
 This project rocks and uses MIT-LICENSE.
