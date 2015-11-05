@@ -3,8 +3,18 @@ require "rails_helper"
 module ApiFlashcards
   RSpec.describe MainController, type: :controller do
     routes { ApiFlashcards::Engine.routes }
+    let!(:user) do
+      User.create(email: "test@test.com",
+                  password: "123456",
+                  password_confirmation: "123456")
+    end
 
-    shared_examples 'unauthorized' do
+    def encode(email, password)
+      ActionController::HttpAuthentication::Basic.encode_credentials(email,
+                                                                     password)
+    end
+
+    shared_examples "unauthorized" do
       it "returns 401 status code" do
         expect(response.status).to eq(401)
       end
@@ -13,20 +23,27 @@ module ApiFlashcards
       end
     end
 
-    describe "GET #welcome" do
-      
+    describe "GET #welcome" do 
       context "no credentials" do
         before { get :welcome }
         it_behaves_like "unauthorized"
       end
 
       context " with incorrect credentials" do
-        before { get :welcome, request.headers["Authorization"] = "Basic some_incorrect" }
+        before do 
+          get :welcome,
+              request.headers["Authorization"] = encode("some@test.com",
+                                                        "nopass")
+        end
         it_behaves_like "unauthorized"
       end
 
       context "with correct credentials" do
-        before { get :welcome, request.headers["Authorization"] = "Basic aWx5YS5kb2xnaXJldkBnbWFpbC5jb206MTIzNDU2Nzg5" }
+        before do
+          get :welcome,
+              request.headers["Authorization"] = encode("test@test.com",
+                                                        "123456")
+        end
         it "returns 200 status code" do
           expect(response.status).to eq(200)
         end
