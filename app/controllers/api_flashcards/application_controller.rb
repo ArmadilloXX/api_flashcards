@@ -10,7 +10,7 @@ module ApiFlashcards
 
     def authenticate_basic_auth
       authenticate_with_http_basic do |email, password|
-        User.authenticate(email, password)
+        ApiFlashcards.user_class.authenticate(email, password)
       end
     end
 
