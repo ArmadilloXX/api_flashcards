@@ -15,7 +15,7 @@ module ApiFlashcards
     end
 
     def render_not_authenticated
-      self.headers["WWW-Authenticate"] = "Basic realm='API'"
+      headers["WWW-Authenticate"] = "Basic realm='API'"
       respond_to do |format|
         format.html { render plain: "Bad credentials", status: 401 }
         format.json { render json: "Bad credentials", status: 401 }

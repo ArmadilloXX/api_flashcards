@@ -23,14 +23,14 @@ module ApiFlashcards
       end
     end
 
-    describe "GET #welcome" do 
+    describe "GET #welcome" do
       context "no credentials" do
         before { get :welcome }
         it_behaves_like "unauthorized"
       end
 
       context " with incorrect credentials" do
-        before do 
+        before do
           get :welcome,
               request.headers["Authorization"] = encode("some@test.com",
                                                         "nopass")
@@ -49,6 +49,5 @@ module ApiFlashcards
         end
       end
     end
-
   end
 end
