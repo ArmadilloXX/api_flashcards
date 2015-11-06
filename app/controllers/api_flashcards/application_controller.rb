@@ -1,5 +1,8 @@
+require "rails-api/action_controller/api"
+
 module ApiFlashcards
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ActionController::API
+    include ActionController::HttpAuthentication::Basic::ControllerMethods
     before_action :authenticate
 
     protected
@@ -16,10 +19,11 @@ module ApiFlashcards
 
     def render_not_authenticated
       headers["WWW-Authenticate"] = "Basic realm='API'"
-      respond_to do |format|
-        format.html { render plain: "Bad credentials", status: 401 }
-        format.json { render json: "Bad credentials", status: 401 }
-      end
+      # respond_to do |format|
+      #   format.html { render plain: "Bad credentials", status: 401 }
+      #   format.json { render json: "Bad credentials", status: 401 }
+      render json: "Bad credentials", status: 401
+      # end
     end
   end
 end
