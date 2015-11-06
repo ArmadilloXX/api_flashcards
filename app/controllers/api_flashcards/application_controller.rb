@@ -8,7 +8,6 @@ module ApiFlashcards
     respond_to :json
     before_action :authenticate
 
-
     protected
 
     def authenticate
@@ -23,7 +22,7 @@ module ApiFlashcards
 
     def render_not_authenticated
       headers["WWW-Authenticate"] = "Basic realm='API'"
-      render  json: { message: "Not authorized" }, status: 401
+      render json: { message: "Not authorized" }, status: 401
     end
   end
 end

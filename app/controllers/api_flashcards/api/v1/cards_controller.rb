@@ -2,10 +2,8 @@ require_dependency "api_flashcards/application_controller"
 
 module ApiFlashcards
   class Api::V1::CardsController < ApplicationController
-    respond_to :json
-    
     def index
-        render json: { message: "Cards list will be here" }, status: 200 
+      render json: { message: "Cards list will be here" }, status: 200
     end
 
     def create
