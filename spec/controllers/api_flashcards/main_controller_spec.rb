@@ -8,6 +8,7 @@ module ApiFlashcards
                   password: "123456",
                   password_confirmation: "123456")
     end
+    let(:not_authorized) { {message: "Not authorized"}.to_json }
 
     def encode(email, password)
       ActionController::HttpAuthentication::Basic.encode_credentials(email,
@@ -18,8 +19,8 @@ module ApiFlashcards
       it "returns 401 status code" do
         expect(response.status).to eq(401)
       end
-      it "returns 'Bad credentials' in response body" do
-        expect(response.body).to eq("Bad credentials")
+      it "returns 'Not authorized' in response body" do
+        expect(response.body).to eq(not_authorized)
       end
     end
 
