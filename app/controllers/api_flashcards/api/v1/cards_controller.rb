@@ -3,7 +3,8 @@ require_dependency "api_flashcards/application_controller"
 module ApiFlashcards
   class Api::V1::CardsController < ApplicationController
     def index
-      render json: { message: "Cards list will be here" }, status: 200
+      @cards = current_user.cards.all.order("review_date")
+      render json: @cards
     end
 
     def create
