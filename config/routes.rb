@@ -1,6 +1,6 @@
 ApiFlashcards::Engine.routes.draw do
-  get "main/welcome"
-  root to: "main#welcome"
+  # get "docs", to: "main#welcome", as: :docs
+  root "main#welcome"
 
   scope module: "api" do
     namespace "v1" do

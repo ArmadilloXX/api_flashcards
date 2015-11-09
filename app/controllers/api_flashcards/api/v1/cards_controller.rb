@@ -1,7 +1,18 @@
 require_dependency "api_flashcards/application_controller"
 
 module ApiFlashcards
-  class Api::V1::CardsController < ApplicationController
+  class Api::V1::CardsController < ApiController
+
+    swagger_controller :cards, "Cards Management"
+
+    swagger_api :index do
+      summary "Fetches all User cards"
+      notes "This lists all the user's cards"
+      response :unauthorized
+      # response :not_acceptable, "The request you made is not acceptable"
+      # response :requested_range_not_satisfiable
+    end
+
     def index
       @cards = current_user.cards.all.order("review_date")
       render json: @cards, each_serializer: CardSerializer
