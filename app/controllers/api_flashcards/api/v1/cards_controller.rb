@@ -4,7 +4,7 @@ module ApiFlashcards
   class Api::V1::CardsController < ApplicationController
     def index
       @cards = current_user.cards.all.order("review_date")
-      render json: @cards
+      render json: @cards, each_serializer: CardSerializer
     end
 
     def create

@@ -2,18 +2,17 @@ require "rails-api/action_controller/api"
 
 module ApiFlashcards
   class ApplicationController < ActionController::API
-    include ActionController::RespondWith
+    # include ActionController::RespondWith
+    include ActionController::Serialization
     include ActionController::HttpAuthentication::Basic::ControllerMethods
-    self.responder = ApplicationResponder
-    respond_to :json
+    # self.responder = ApplicationResponder
+    # respond_to :json
     before_action :authenticate
 
     protected
 
     def authenticate
       authenticate_basic_auth || render_not_authenticated
-      # if authenticate_basic_auth
-      #   set_current_user
     end
 
     def authenticate_basic_auth
