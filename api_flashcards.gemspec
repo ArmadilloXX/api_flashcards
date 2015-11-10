@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.2.4"
   s.add_dependency "rails-api"
   s.add_dependency "active_model_serializers"
+  s.add_dependency "swagger-blocks"
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
