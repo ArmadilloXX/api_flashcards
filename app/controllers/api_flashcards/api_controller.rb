@@ -1,5 +1,6 @@
 require "rails-api"
 require "active_model_serializers"
+require "swagger/blocks"
 
 module ApiFlashcards
   class ApiController < ActionController::API

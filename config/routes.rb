@@ -6,5 +6,5 @@ ApiFlashcards::Engine.routes.draw do
       post "cards", to: "cards#create"
     end
   end
-  root to: "api/v1/cards#index"
+  root to: "main#welcome"
 end
