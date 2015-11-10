@@ -5,8 +5,8 @@ module ApiFlashcards
     routes { ApiFlashcards::Engine.routes }
     let!(:user) do
       User.create(email: "test@test.com",
-                  password: "123456",
-                  password_confirmation: "123456")
+                  password: "12345",
+                  password_confirmation: "12345")
     end
     let(:not_authorized) { {message: "Not authorized"}.to_json }
 
@@ -43,7 +43,7 @@ module ApiFlashcards
         before do
           get :welcome,
               request.headers["Authorization"] = encode("test@test.com",
-                                                        "123456")
+                                                        "12345")
         end
         it "returns 200 status code" do
           expect(response.status).to eq(200)

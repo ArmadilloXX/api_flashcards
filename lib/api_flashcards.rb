@@ -1,6 +1,6 @@
-Gem.loaded_specs["api_flashcards"].dependencies.each do |d|
- require d.name
-end
+# Gem.loaded_specs["api_flashcards"].dependencies.each do |d|
+#  require d.name
+# end
 
 require "api_flashcards/engine"
 

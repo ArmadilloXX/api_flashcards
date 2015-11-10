@@ -1,10 +1,13 @@
+require "rails-api"
+require "active_model_serializers"
+
 module ApiFlashcards
   class ApiController < ActionController::API
     include ActionController::Serialization
     include ActionController::HttpAuthentication::Basic::ControllerMethods
     before_action :authenticate
 
-    protected
+    private
 
     def authenticate
       authenticate_basic_auth || render_not_authenticated

@@ -1,4 +1,4 @@
 module ApiFlashcards
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ActiveController::Base
   end
 end
