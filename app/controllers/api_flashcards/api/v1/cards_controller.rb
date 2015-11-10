@@ -5,12 +5,12 @@ module ApiFlashcards
     swagger_path '/cards' do
       operation :get do
         key :description, 'Returns all user cards'
-        key :operationId, 'findCards'
+        # key :operationId, 'findCards'
         key :produces, [
           'application/json'
         ]
         key :tags, [
-          'card'
+          'cards'
         ]
         # parameter do
         #   key :name, :tags

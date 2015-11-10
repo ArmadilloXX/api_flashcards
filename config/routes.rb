@@ -7,4 +7,6 @@ ApiFlashcards::Engine.routes.draw do
     end
   end
   root to: "main#welcome"
+  # mount SwaggerEngine::Engine, at: "/docs"
+  
 end
