@@ -19,13 +19,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.2.4"
   s.add_dependency "rails-api"
-  s.add_dependency "responders"
-  # s.add_dependency "active_model_serializers"
-  s.add_dependency "swagger-docs"
-  s.add_dependency "swagger-ui_rails", '2.1.0-alpha.7.1'
+  s.add_dependency "active_model_serializers"
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails"
-  s.add_development_dependency "factory_girl_rails"
   s.add_development_dependency "bcrypt"
 end

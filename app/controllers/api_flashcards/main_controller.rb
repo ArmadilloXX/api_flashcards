@@ -1,6 +1,5 @@
 module ApiFlashcards
-  class MainController < ApplicationController
-    respond_to :html
+  class MainController < ApiController
     def welcome
     end
   end
