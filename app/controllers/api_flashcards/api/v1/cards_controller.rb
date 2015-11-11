@@ -5,79 +5,80 @@ module ApiFlashcards
     swagger_path '/cards' do
       operation :get do
         key :description, 'Returns all user cards'
-        # key :operationId, 'findCards'
         key :produces, [
           'application/json'
         ]
         key :tags, [
-          'cards'
+          'Cards'
         ]
-        # parameter do
-        #   key :name, :tags
-        #   key :in, :query
-        #   key :description, 'tags to filter by'
-        #   key :required, false
-        #   key :type, :array
-        #   items do
-        #     key :type, :string
-        #   end
-        #   key :collectionFormat, :csv
-        # end
-        # parameter do
-        #   key :name, :limit
-        #   key :in, :query
-        #   key :description, 'maximum number of results to return'
-        #   key :required, false
-        #   key :type, :integer
-        #   key :format, :int32
-        # end
         response 200 do
-          key :description, 'pet response'
+          key :description, 'Response with array of cards'
+          # schema do
+          #   key :type, :array
+          #   items do
+          #     key :'$ref', :Card
+          #   end
+          # end
+
           schema do
-            key :type, :array
-            items do
-              key :'$ref', :Card
-            end
+            key :'$ref', :CardsResponse
           end
         end
-        response :default do
-          key :description, 'unexpected error'
+        response 401 do
+          key :description, 'Not Authorized'
           schema do
             key :'$ref', :ErrorModel
           end
         end
       end
-      # operation :post do
-      #   key :description, 'Creates a new pet in the store.  Duplicates are allowed'
-      #   key :operationId, 'addPet'
-      #   key :produces, [
-      #     'application/json'
-      #   ]
-      #   key :tags, [
-      #     'pet'
-      #   ]
-      #   parameter do
-      #     key :name, :pet
-      #     key :in, :body
-      #     key :description, 'Pet to add to the store'
-      #     key :required, true
-      #     schema do
-      #       key :'$ref', :PetInput
-      #     end
-      #   end
-      #   response 200 do
-      #     key :description, 'pet response'
-      #     schema do
-      #       key :'$ref', :Pet
-      #     end
-      #   end
-      #   response :default do
-      #     key :description, 'unexpected error'
-      #     schema do
-      #       key :'$ref', :ErrorModel
-      #     end
-      #   end
-      # end
+      operation :post do
+        key :description, 'Creates a new card.  Duplicates are allowed'
+        key :produces, [
+          'application/json'
+        ]
+        key :tags, [
+          'Cards'
+        ]
+        parameter do
+          key :name, "card[original_text]"
+          key :in, "query"
+          key :description, 'Original text'
+          key :required, true
+          key :type, :string
+        end
+        parameter do
+          key :name, 'card[translated_text]'
+          key :in, "query"
+          key :description, 'Translated text'
+          key :required, true
+          key :type, :string
+        end
+        parameter do
+          key :name, 'card[block_id]'
+          key :in, "query"
+          key :description, 'Block for card'
+          key :required, true
+          key :type, :integer
+        end
+        response 201 do
+          key :description, 'Response with card'
+          schema do
+            key :'$ref', :CardResponse
+          end
+        end
+        response 401 do
+          key :description, 'Not Authorized'
+          schema do
+            key :'$ref', :ErrorModel
+          end
+        end
+        response 422 do
+          key :description, 'Unprocessable entity'
+          schema do
+            key :'$ref', :ErrorModel
+          end
+        end
+      end
     end
     def index
       @cards = current_user.cards.all.order("review_date")
