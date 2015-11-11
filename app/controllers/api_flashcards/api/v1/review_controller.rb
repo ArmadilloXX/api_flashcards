@@ -9,7 +9,7 @@ module ApiFlashcards
         key :tags, ["Review"]
 
         response 200 do
-          key :description, "Response with card"
+          key :description, "Response with card for review"
           schema do
             key :"$ref", :CardReviewResponse
           end
@@ -23,62 +23,42 @@ module ApiFlashcards
         end
       end
 
-    #   operation :post do
-    #     key :description, "Creates a new card.  Duplicates are allowed"
-    #     key :produces, ["application/json"]
-    #     key :tags, ["Cards"]
+      operation :put do
+        key :description, "Check card\'s translation"
+        key :produces, ["application/json"]
+        key :tags, ["Review"]
 
-    #     parameter do
-    #       key :name, "card[original_text]"
-    #       key :in, "query"
-    #       key :description, "Original text"
-    #       key :required, true
-    #       key :type, :string
-    #     end
+        parameter do
+          key :name, "card_id"
+          key :in, "query"
+          key :description, "Card ID"
+          key :required, true
+          key :type, :integer
+        end
 
-    #     parameter do
-    #       key :name, "card[translated_text]"
-    #       key :in, "query"
-    #       key :description, "Translated text"
-    #       key :required, true
-    #       key :type, :string
-    #     end
+        parameter do
+          key :name, "translated_text"
+          key :in, "query"
+          key :description, "Translated text"
+          key :required, true
+          key :type, :string
+        end
 
-    #     parameter do
-    #       key :name, "card[block_id]"
-    #       key :in, "query"
-    #       key :description, "Block for card"
-    #       key :required, true
-    #       key :type, :integer
-    #     end
+        response 200 do
+          key :description, "Response with card review result"
+          schema do
+            key :"$ref", :CardReviewResult
+          end
+        end
 
-    #     response 201 do
-    #       key :description, "Response with card"
-    #       schema do
-    #         key :"$ref", :CardResponse
-    #       end
-    #     end
-
-    #     response 401 do
-    #       key :description, "Not Authorized"
-    #       schema do
-    #         key :"$ref", :NotAuthorized
-    #       end
-    #     end
-
-    #     response 422 do
-    #       key :description, "Unprocessable entity"
-    #       schema do
-    #         key :"$ref", :Unprocessable
-    #       end
-    #     end
-    #   end
+        response 401 do
+          key :description, "Not Authorized"
+          schema do
+            key :"$ref", :NotAuthorized
+          end
+        end
+      end
     end
-
-    # def index
-    #   @cards = current_user.cards.all.order("review_date")
-    #   render json: @cards, each_serializer: CardSerializer
-    # end
 
     def index
       if params[:id]
@@ -89,20 +69,28 @@ module ApiFlashcards
       render json: @card, serializer: CardReviewSerializer
     end
 
+    def check
+      @card = current_user.cards.find(review_params[:card_id])
+      check_result = @card.check_translation(review_params[:translated_text])
+      if check_result[:state]
+        prepare_response(check_result[:distance])
+      else
+        render json: { result: "Your answer is incorrect" }, status: 200
+      end
+    end
 
-    # def create
-    #   @card = current_user.cards.build(card_params)
-    #   if @card.save
-    #     render json: @card, serializer: CardSerializer, status: 201
-    #   else
-    #     render json: { message: "Can\'t save your card", errors: "#{@card.errors.full_messages}" }, status: 422
-    #   end
-    # end
+    private
 
-    # private
+    def review_params
+      params.permit(:card_id, :translated_text)
+    end
 
-    # def card_params
-    #   params.require(:card).permit(:original_text, :translated_text, :block_id)
-    # end
+    def prepare_response(distance)
+      if distance == 0
+        render json: { result: "Your answer is correct" }, status: 200
+      else
+        render json: { result: "You\'ve made a typo. Correct answer is #{@card.translated_text}" }, status: 200
+      end
+    end 
   end
 end
