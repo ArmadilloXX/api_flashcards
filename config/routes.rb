@@ -4,6 +4,8 @@ ApiFlashcards::Engine.routes.draw do
     namespace "v1" do
       get "cards", to: "cards#index"
       post "cards", to: "cards#create"
+      get "review", to: "review#index"
+      put "review", to: "review#check"
     end
   end
   root to: "main#welcome"
