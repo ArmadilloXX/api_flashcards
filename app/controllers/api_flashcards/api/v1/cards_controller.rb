@@ -1,3 +1,5 @@
+require "swagger/blocks"
+
 module ApiFlashcards
   class Api::V1::CardsController < ApiController
     include Swagger::Blocks
