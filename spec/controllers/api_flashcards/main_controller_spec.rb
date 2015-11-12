@@ -33,7 +33,7 @@ module ApiFlashcards
   #     context " with incorrect credentials" do
   #       before do
   #         get :welcome,
-  #             request.headers["Authorization"] = encode("some@test.com",
+  #           request.headers["Authorization"] = encode("some@test.com",
   #                                                       "nopass")
   #       end
   #       it_behaves_like "unauthorized"
@@ -42,7 +42,7 @@ module ApiFlashcards
   #     context "with correct credentials" do
   #       before do
   #         get :welcome,
-  #             request.headers["Authorization"] = encode("test@test.com",
+  #           request.headers["Authorization"] = encode("test@test.com",
   #                                                       "12345")
   #       end
   #       it "returns 200 status code" do

@@ -87,14 +87,17 @@ module ApiFlashcards
       if @card.save
         render json: @card, serializer: CardSerializer, status: 201
       else
-        render json: { message: "Can\'t save your card", errors: "#{@card.errors.full_messages}" }, status: 422
+        render json: { message: "Can\'t save your card",
+          errors: "#{@card.errors.full_messages}" }, status: 422
       end
     end
 
     private
 
     def card_params
-      params.require(:card).permit(:original_text, :translated_text, :block_id)
+      params.require(:card).permit(:original_text,
+                                   :translated_text,
+                                   :block_id)
     end
   end
 end
