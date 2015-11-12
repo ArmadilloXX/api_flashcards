@@ -73,11 +73,13 @@ module ApiFlashcards
 
         def check
           @card = current_user.cards.find(review_params[:card_id])
-          check_result = @card.check_translation(review_params[:translated_text])
+          check_result = @card.
+            check_translation(review_params[:translated_text])
           if check_result[:state]
             prepare_response(check_result[:distance])
           else
-            render json: { result: "Your answer is incorrect" }, status: 200
+            render json: { result: "Your answer is incorrect" },
+                   status: 200
           end
         end
 
@@ -90,12 +92,11 @@ module ApiFlashcards
         def prepare_response(distance)
           if distance == 0
             render json: { result: "Your answer is correct" },
-            status: 200
+                   status: 200
           else
-            render json: {
-              result: "You\'ve made a typo."\
-              "Correct answer is #{@card.translated_text}" }, 
-              status: 200
+            render json: { result: "You\'ve made a typo."\
+                           "Correct answer is #{@card.translated_text}" },
+                   status: 200
           end
         end
       end
