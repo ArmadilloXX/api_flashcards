@@ -1,4 +1,4 @@
-require "rails-api"
+require "rails-api/action_controller/api"
 require "active_model_serializers"
 
 module ApiFlashcards
