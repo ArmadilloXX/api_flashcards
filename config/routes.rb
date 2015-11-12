@@ -1,5 +1,4 @@
 ApiFlashcards::Engine.routes.draw do
-  get "main/welcome", to: "main#welcome"
   scope module: "api" do
     namespace "v1" do
       get "cards", to: "cards#index"
@@ -8,7 +7,6 @@ ApiFlashcards::Engine.routes.draw do
       put "review", to: "review#check"
     end
   end
+  get "main/welcome", to: "main#welcome"
   root to: "main#welcome"
-  # mount SwaggerEngine::Engine, at: "/docs"
-  
 end
