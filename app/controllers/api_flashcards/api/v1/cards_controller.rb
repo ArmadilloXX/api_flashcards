@@ -3,7 +3,7 @@ require "swagger/blocks"
 module ApiFlashcards
   module Api
     module V1
-      class Api::V1::CardsController < ApiController
+      class CardsController < ApiController
         include Swagger::Blocks
 
         swagger_path "/cards" do
