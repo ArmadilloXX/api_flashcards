@@ -2,6 +2,7 @@
 #  require d.name
 # end
 # require "swagger_engine"
+require "swagger-ui_rails"
 require "api_flashcards/engine"
 
 module ApiFlashcards
