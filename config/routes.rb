@@ -5,8 +5,7 @@ ApiFlashcards::Engine.routes.draw do
       post "cards", to: "cards#create"
       get "review", to: "review#index"
       put "review", to: "review#check"
+      get "/", to: "docs#welcome"
     end
   end
-  get "main/welcome", to: "main#welcome"
-  root to: "main#welcome"
 end
