@@ -3,6 +3,7 @@ require "active_model_serializers"
 
 module ApiFlashcards
   class ApiController < ActionController::API
+    attr_reader :current_user
     include ActionController::Serialization
     include ActionController::HttpAuthentication::Basic::ControllerMethods
     before_action :authenticate
@@ -24,10 +25,6 @@ module ApiFlashcards
     def render_not_authenticated
       headers["WWW-Authenticate"] = "Basic realm='API'"
       render json: { message: "Not authorized" }, status: 401
-    end
-
-    def current_user
-      @current_user
     end
 
     def set_current_user(email)
