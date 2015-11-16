@@ -3,7 +3,7 @@ require "swagger/blocks"
 module ApiFlashcards
   include Swagger::Blocks
   host = if ENV['RAILS_ENV'] == "production"
-    "https://mkdev-flashcards.herokuapp.com"
+    "mkdev-flashcards.herokuapp.com"
   else
     "localhost:3000"
   end
