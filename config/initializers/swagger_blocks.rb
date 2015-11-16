@@ -20,7 +20,7 @@ module ApiFlashcards
     tag do
       key :name, "Review"
     end
-    key :host, "#{host}"
+    key :host, host
     key :basePath, "/api/v1"
     key :produces, ["application/json"]
   end
