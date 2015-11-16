@@ -6,7 +6,6 @@ ApiFlashcards::Engine.routes.draw do
       get "review", to: "review#index"
       put "review", to: "review#check"
       get "/", to: "docs#welcome"
-      # get "docs", to: "docs#index"
     end
   end
 end

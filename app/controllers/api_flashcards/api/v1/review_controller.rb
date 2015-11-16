@@ -3,7 +3,6 @@ module ApiFlashcards
     module V1
       class ReviewController < ApiController
         include Swagger::Blocks
-
         swagger_path "/review" do
           operation :get do
             key :description, "Returns one card for review"
