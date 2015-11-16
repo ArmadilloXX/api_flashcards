@@ -2,6 +2,11 @@ require "swagger/blocks"
 
 module ApiFlashcards
   include Swagger::Blocks
+  host = if ENV['RAILS_ENV'] == "production"
+    "https://mkdev-flashcards.herokuapp.com"
+  else
+    "localhost:3000"
+  end
   swagger_root do
     key :swagger, "2.0"
     info do
@@ -15,7 +20,7 @@ module ApiFlashcards
     tag do
       key :name, "Review"
     end
-    key :host, "localhost:3000"
+    key :host, "#{host}"
     key :basePath, "/api/v1"
     key :produces, ["application/json"]
   end
