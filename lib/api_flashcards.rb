@@ -1,8 +1,3 @@
-# Gem.loaded_specs["api_flashcards"].dependencies.each do |d|
-#  require d.name
-# end
-# require "swagger_engine"
-require "swagger-ui_rails"
 require "api_flashcards/engine"
 
 module ApiFlashcards
