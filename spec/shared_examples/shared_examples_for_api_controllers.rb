@@ -22,7 +22,8 @@ module ApiFlashcards
       }
     end
     let(:params) { {} }
-
+    let(:stub) {}
+    before(:example) { stub }
     before do
       send(endpoint[:verb],
            endpoint[:method].to_sym,

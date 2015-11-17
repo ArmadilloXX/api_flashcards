@@ -82,61 +82,66 @@ module ApiFlashcards
           end
         end
 
-        it "responds with 200 status code" do
-          expect(response.status).to eq(200)
+        shared_examples "common response" do
+          it "responds with 200 status code" do
+            expect(response.status).to eq(200)
+          end
+          it "contains \'result\' key in response" do
+            expect(json_response.key?("result")).to eq(true)
+          end
         end
-        it "contains \'result\' key in response" do
-          expect(json_response.key?("result")).to eq(true)
+
+        context "when user provides correct translation" do
+          let(:stub) do
+            allow_any_instance_of(Card).to receive(:check_translation).with(any_args).
+              and_return({ state: true, distance: 0 })
+          end
+          let(:params) do
+            {
+              card_id: card.id,
+              translated_text: "Translation"
+            }
+          end
+          it_behaves_like "common response"
+          it "responds with successful message" do
+            expect(json_response["result"]).to eq("Your answer is correct")
+          end
         end
 
-        # shared_examples "common response" do
-        #   it "responds with 200 status code" do
-        #     expect(response.status).to eq(200)
-        #   end
-        #   it "contains \'result\' key in response" do
-        #     expect(json_response.key?("result")).to eq(true)
-        #   end
-        # end
+        context "when user made a typo" do
+          let(:stub) do
+            allow_any_instance_of(Card).to receive(:check_translation).with(any_args).
+              and_return({ state: true, distance: 1 })
+          end
+          let(:params) do
+            {
+              card_id: card.id,
+              translated_text: "Translatio"
+            }
+          end
+          it_behaves_like "common response"
+          it "responds with typo message" do
+            expect(json_response["result"]).to eq("You\'ve made a typo."\
+                           "Correct answer is #{card.translated_text}")
+          end
+        end
 
-        # context "when user provides correct translation" do
-        #   let(:params) do
-        #     {
-        #       card_id: card.id,
-        #       translated_text: "Translation"
-        #     }
-        #   end
-        #   it_behaves_like "common response"
-        #   it "responds with successful message" do
-        #     expect(json_response["result"]).to eq("Your answer is correct")
-        #   end
-        # end
-
-        # context "when user made a typo" do
-        #   let(:params) do
-        #     {
-        #       card_id: card.id,
-        #       translated_text: "Translatio"
-        #     }
-        #   end
-        #   it_behaves_like "common response"
-        #   it "responds with typo message" do
-        #     expect(json_response["result"]).to eq("You\'ve made a typo."\
-        #                    "Correct answer is #{card.translated_text}")
-        #   end
-        # end
-
-        # context "when user provides incorrect translation" do
-        #   let(:params) do
-        #     {
-        #       card_id: card.id,
-        #       translated_text: "Something"
-        #     }
-        #   end
-        #   it_behaves_like "common response"
-        #   it "responds with failure message" do
-        #     expect(json_response["result"]).to eq("Your answer is incorrect")
-        #   end
-        # end
+        context "when user provides incorrect translation" do
+          let(:stub) do
+            allow_any_instance_of(Card).to receive(:check_translation).with(any_args).
+              and_return({ state: false, distance: 5 })
+          end
+          let(:params) do
+            {
+              card_id: card.id,
+              translated_text: "Something"
+            }
+          end
+          it_behaves_like "common response"
+          it "responds with failure message" do
+            expect(json_response["result"]).to eq("Your answer is incorrect")
+          end
+        end
       end
     end
   end

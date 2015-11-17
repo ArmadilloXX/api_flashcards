@@ -15,31 +15,7 @@ class Card < ActiveRecord::Base
   scope :pending, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
   scope :repeating, -> { where("quality < ?", 4).order("RANDOM()") }
 
-  def check_translation(user_translation)
-    distance = Levenshtein.distance(full_downcase(translated_text),
-                                    full_downcase(user_translation))
-    sm_hash = SuperMemo.algorithm(
-      interval, repeat, efactor, attempt, distance, 1)
-    if distance <= 1
-      successful_review_update(sm_hash, distance)
-    else
-      unsuccessful_review_update(sm_hash, distance)
-    end
-  end
-
   protected
-
-  # def successful_review_update(sm_hash, distance)
-  #   sm_hash.merge!(review_date: Time.now + interval.to_i.days, attempt: 1)
-  #   update(sm_hash)
-  #   { state: true, distance: distance }
-  # end
-
-  # def unsuccessful_review_update(sm_hash, distance)
-  #   sm_hash.merge!(attempt: [attempt + 1, 5].min)
-  #   update(sm_hash)
-  #   { state: false, distance: distance }
-  # end
 
   def set_review_date_as_now
     self.review_date = Time.now
