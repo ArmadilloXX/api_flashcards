@@ -12,8 +12,8 @@ class Card < ActiveRecord::Base
             presence: { message: "Выберите колоду из выпадающего списка." }
   validate :texts_are_not_equal
 
-  scope :pending, 
-        lambda { where("review_date <= ?", Time.now.rfc3339).order("RANDOM()") }
+  scope :pending,
+        -> { where("review_date <= ?", Time.now.rfc3339).order("RANDOM()") }
   scope :repeating, -> { where("quality < ?", 4).order("RANDOM()") }
 
   protected
