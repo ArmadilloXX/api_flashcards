@@ -1,3 +1,4 @@
+require 'time'
 class Card < ActiveRecord::Base
   belongs_to :block
   belongs_to :user
@@ -13,13 +14,13 @@ class Card < ActiveRecord::Base
   validate :texts_are_not_equal
 
   scope :pending,
-        -> { where("review_date <= ?", Time.now.rfc3339).order("RANDOM()") }
+        -> { where("review_date <= ?", Time.now).order("RANDOM()") }
   scope :repeating, -> { where("quality < ?", 4).order("RANDOM()") }
 
   protected
 
   def set_review_date_as_now
-    self.review_date = Time.now.rfc3339
+    self.review_date = Time.now
   end
 
   def texts_are_not_equal
