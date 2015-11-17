@@ -92,7 +92,6 @@ module ApiFlashcards
             expect(response.status).to eq(201)
           end
           it "creates the card" do
-            
             expect(user.cards.last.translated_text).to eq("Translation2")
           end
           it "contains 'card' key in response" do

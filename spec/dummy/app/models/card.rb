@@ -12,13 +12,13 @@ class Card < ActiveRecord::Base
             presence: { message: "Выберите колоду из выпадающего списка." }
   validate :texts_are_not_equal
 
-  scope :pending, -> { where("review_date <= ?", Time.now).order("RANDOM()") }
+  scope :pending, -> { where("review_date <= ?", Time.now.rfc3339).order("RANDOM()") }
   scope :repeating, -> { where("quality < ?", 4).order("RANDOM()") }
 
   protected
 
   def set_review_date_as_now
-    self.review_date = Time.now
+    self.review_date = Time.now.rfc3339
   end
 
   def texts_are_not_equal
@@ -30,5 +30,4 @@ class Card < ActiveRecord::Base
   def full_downcase(str)
     str.mb_chars.downcase.to_s.squeeze(" ").lstrip
   end
-
 end

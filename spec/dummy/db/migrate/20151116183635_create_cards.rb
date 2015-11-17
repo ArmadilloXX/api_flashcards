@@ -6,9 +6,7 @@ class CreateCards < ActiveRecord::Migration
       t.date :review
       t.integer :user_id, null: false
       t.integer :block_id, null: false
-
       t.timestamps null: false
     end
   end
 end
-

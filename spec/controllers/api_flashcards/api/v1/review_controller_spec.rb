@@ -93,8 +93,8 @@ module ApiFlashcards
 
         context "when user provides correct translation" do
           let(:stub) do
-            allow_any_instance_of(Card).to receive(:check_translation).with(any_args).
-              and_return({ state: true, distance: 0 })
+            allow_any_instance_of(Card).to receive(:check_translation).
+            with(any_args).and_return(state: true, distance: 0)
           end
           let(:params) do
             {
@@ -110,8 +110,8 @@ module ApiFlashcards
 
         context "when user made a typo" do
           let(:stub) do
-            allow_any_instance_of(Card).to receive(:check_translation).with(any_args).
-              and_return({ state: true, distance: 1 })
+            allow_any_instance_of(Card).to receive(:check_translation).
+              with(any_args).and_return(state: true, distance: 1)
           end
           let(:params) do
             {
@@ -128,8 +128,8 @@ module ApiFlashcards
 
         context "when user provides incorrect translation" do
           let(:stub) do
-            allow_any_instance_of(Card).to receive(:check_translation).with(any_args).
-              and_return({ state: false, distance: 5 })
+            allow_any_instance_of(Card).to receive(:check_translation).
+              with(any_args).and_return(state: false, distance: 5)
           end
           let(:params) do
             {
